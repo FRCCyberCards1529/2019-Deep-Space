@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.OI;
@@ -24,14 +25,14 @@ public class ElevatorSubsystem extends Subsystem {
   public DigitalInput bottomLimit = new DigitalInput(RobotMap.Bottom_Limit_Port);
   public DigitalInput topLimit = new DigitalInput(RobotMap.Top_Limit_Port);
   public PWMTalonSRX ElevatorMotor = new PWMTalonSRX(4);
+  public DoubleSolenoid IntakeOutakeSolenoid = new DoubleSolenoid(4, 5);
+
     // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-   // ElevatorStop();
+    IntakeOutakeSolenoid.set(DoubleSolenoid.Value.kOff);
   }
 
   public void gotoTopPos(){
@@ -46,6 +47,16 @@ public class ElevatorSubsystem extends Subsystem {
       ElevatorMotor.set(-0.25);
     }
     return;
+  }
+
+
+  //Intake Outake
+  public void Intake(){
+    IntakeOutakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public void Outake(){
+    IntakeOutakeSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
   public void stopElevator(){
