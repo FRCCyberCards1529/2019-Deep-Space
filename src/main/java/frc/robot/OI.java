@@ -9,9 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ElevatorBottom;
 import frc.robot.commands.ElevatorRaise;
-//import frc.robot.commands.ElevatorStop;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Intake;
+import frc.robot.commands.Outake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,11 +20,26 @@ import frc.robot.commands.ExampleCommand;
  */
 public class OI {
   public Joystick joyOperator = new Joystick(0);
-  JoystickButton buttonA = new JoystickButton(joyOperator, 1);
+  public JoystickButton ButtonA = new JoystickButton(joyOperator, 1);
+	public JoystickButton ButtonB = new JoystickButton(joyOperator, 2);
+	public JoystickButton ButtonX = new JoystickButton(joyOperator, 3);
+	public JoystickButton ButtonY = new JoystickButton(joyOperator, 4);
+	public JoystickButton ButtonLB = new JoystickButton(joyOperator, 5);
+	public JoystickButton ButtonRB = new JoystickButton(joyOperator, 6);
+	public JoystickButton ButtonSelect = new JoystickButton(joyOperator, 7);
+  public JoystickButton ButtonStart = new JoystickButton(joyOperator, 8);
+  
+
   public OI()
 {
-  buttonA.whileHeld(new ElevatorRaise());
-  //buttonA.whenReleased(new ElevatorStop());
+
+  //Elevator Positions
+  ButtonX.whenPressed(new ElevatorRaise());
+  ButtonB.whenPressed(new ElevatorBottom());
+
+  //Intake&Outake
+  ButtonLB.whileHeld(new Intake());
+  ButtonRB.whileHeld(new Outake());
 
 }
 
