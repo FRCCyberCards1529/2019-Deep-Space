@@ -7,22 +7,32 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.RobotDrive;
 
-
- /**
- * An example subsystem.  You can replace me with your own Subsystem.
+/**
+ * An example subsystem. You can replace me with your own Subsystem.
  */
 public class DriveTrainSubsystem extends Subsystem {
+	//public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
+	public PWMVictorSPX FrontLeft = new PWMVictorSPX(0);
+	public PWMVictorSPX RearLeft = new PWMVictorSPX(1);
+	public PWMVictorSPX FrontRight = new PWMVictorSPX(2);
+	public PWMVictorSPX RearRight = new PWMVictorSPX(3);
+
+	// public double ySpeed = Robot.m_oi.DriverXbox.getRawAxis(0);
+	// public double xSpeed = Robot.m_oi.DriverXbox.getRawAxis(1);
+	// public double zRotation = Robot.m_oi.DriverXbox.getRawAxis(4);
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -30,73 +40,58 @@ public class DriveTrainSubsystem extends Subsystem {
 	
 	
 	public static int ENCODER_OFFSET = 12;
-	public Encoder enc = new Encoder(0,1,false, Encoder.EncodingType.k4X);//ON COMP = 2,3
-	public Encoder altEnc = new Encoder(4,5,false, Encoder.EncodingType.k4X);//ON COMP = 2,3
-	public Encoder climbEnc = new Encoder(2,3,false, Encoder.EncodingType.k4X); // ON COMP = 0,2
-	public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-	//public int motorFlip = -1;
+	// public Encoder enc = new Encoder(0,1,false, Encoder.EncodingType.k4X);//ON COMP = 2,3
+	// public Encoder altEnc = new Encoder(4,5,false, Encoder.EncodingType.k4X);//ON COMP = 2,3
+	// public Encoder climbEnc = new Encoder(2,3,false, Encoder.EncodingType.k4X); // ON COMP = 0,2
+	// public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	// public int motorFlip = -1;
 	
 	public double SpeedModifier = 1;
-	
-	public Spark FrontLeft = new Spark(0);
-	public Spark RearLeft  = new Spark(1);
-	public Spark FrontRight = new Spark(2);
-	public Spark RearRight = new Spark(3);
 
-	//CANSparkMax Code
-	//public static final CANSparkMax.InputMode kPWM;
-   //	public CANSparkMax FrontRight = new CANSparkMax(20, MotorType.kBrushless);
+	// PWM Motors
+	// public Spark FrontLeft = new Spark(0);
+	// public Spark RearLeft  = new Spark(1);
+	// public Spark FrontRight = new Spark(2);
+	// public Spark RearRight = new Spark(3);
 
 
-
-
-
-
-
-	public Spark LED = new Spark(0);
-	
-	private SpeedControllerGroup left = new SpeedControllerGroup(FrontLeft, RearLeft), right = new SpeedControllerGroup(FrontRight,RearRight);
-	
-	private DifferentialDrive chassis = new DifferentialDrive(left, right);
-	
-	/*public DriveTrainSubsystem()
-	{
-		FrontLeft.setInverted(true);
-		RearLeft.setInverted(true);
-	}*/
+	//Mecanum.
+	//public MecanumDrive Mecanum = new MecanumDrive(FrontLeft, RearLeft, FrontRight, RearRight);
 	
 	public void tankDrive(double left, double right)
 	{
-		chassis.tankDrive(left, right);
+
 	}
+
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 		
-		enc.setDistancePerPulse((6*3.14159)/360);
-		climbEnc.setDistancePerPulse((((1.25*3.14159)/360)/36)*-4);
+		// enc.setDistancePerPulse((6*3.14159)/360);
+		// climbEnc.setDistancePerPulse((((1.25*3.14159)/360)/36)*-4);
 		//set pulse for climbEnc
+	//setDefaultCommand(new MecanumDrive());
 		
 	}
 	
 	public void autoDrive(double speed, double distance) {
-		if(enc.getDistance() < distance) {
+		// if(enc.getDistance() < distance) {
 		
-			FrontLeft.set(speed);
-			RearLeft.set(speed);
+		// 	FrontLeft.set(speed);
+		// 	RearLeft.set(speed);
 			
-			FrontRight.set(-speed);
-			RearRight.set(-speed);
+		// 	FrontRight.set(-speed);
+		// 	RearRight.set(-speed);
 			
-        }
+        // }
 	}
 	
 	public void stop() {
-		FrontLeft.set(0.0);
-		RearLeft.set(0);
+		// FrontLeft.set(0.0);
+		// RearLeft.set(0);
 		
-		FrontLeft.set(0);
-		RearRight.set(0);
+		// FrontLeft.set(0);
+		// RearRight.set(0);
 		
 	}
 	
@@ -105,10 +100,10 @@ public class DriveTrainSubsystem extends Subsystem {
 		
 	}
 	public void drive(double left, double right){
-		FrontLeft.set(left *  -SpeedModifier);
-		RearLeft.set(left * -SpeedModifier);
-		FrontRight.set(right * SpeedModifier);
-		RearRight.set(right * SpeedModifier);
+		// FrontLeft.set(left *  -SpeedModifier);
+		// RearLeft.set(left * -SpeedModifier);
+		// FrontRight.set(right * SpeedModifier);
+		// RearRight.set(right * SpeedModifier);
 	
 		
 	}

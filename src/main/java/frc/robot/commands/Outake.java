@@ -13,7 +13,7 @@ import frc.robot.Robot;
 public class Outake extends Command {
   public Outake() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.mElevatorSubsystem);
   }
 
   // Called just before this Command runs the first time

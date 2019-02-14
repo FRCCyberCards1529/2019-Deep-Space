@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * Add your docs here.
@@ -20,14 +21,17 @@ public class ElevatorSubsystem extends Subsystem {
   public DigitalInput bottomLimit = new DigitalInput(RobotMap.Bottom_Limit_Port);
   public DigitalInput topLimit = new DigitalInput(RobotMap.Top_Limit_Port);
   public PWMTalonSRX ElevatorMotor = new PWMTalonSRX(4);
-  public DoubleSolenoid IntakeOutakeSolenoid = new DoubleSolenoid(4, 5);
+  public Solenoid IntakeSolenoid = new Solenoid(0);
+  public Solenoid OutakeSolenoid = new Solenoid(1);
+  public Solenoid PivotSolenoid = new Solenoid(2);
 
     // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   @Override
   public void initDefaultCommand() {
-    IntakeOutakeSolenoid.set(DoubleSolenoid.Value.kOff);
+    IntakeSolenoid.set(false);
+    OutakeSolenoid.set(false);
   }
 
   public void gotoTopPos(){
@@ -47,15 +51,22 @@ public class ElevatorSubsystem extends Subsystem {
 
   //Intake Outake
   public void Intake(){
-    IntakeOutakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+    IntakeSolenoid.set(true);
+    OutakeSolenoid.set(false);
   }
 
   public void Outake(){
-    IntakeOutakeSolenoid.set(DoubleSolenoid.Value.kForward);
+    IntakeSolenoid.set(false);
+    OutakeSolenoid.set(true);
   }
 
   public void stopElevator(){
     ElevatorMotor.set(0.0);
+  }
+
+  public void pivotElevator(){
+    PivotSolenoid.set(true);
+    
   }
 
 }

@@ -13,13 +13,15 @@ import frc.robot.commands.ElevatorBottom;
 import frc.robot.commands.ElevatorRaise;
 import frc.robot.commands.Intake;
 import frc.robot.commands.Outake;
+//import frc.robot.commands.MecanumDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  public Joystick joyOperator = new Joystick(0);
+  public Joystick DriverXbox = new Joystick(0);
+  public Joystick joyOperator = new Joystick(1);
   public JoystickButton ButtonA = new JoystickButton(joyOperator, 1);
 	public JoystickButton ButtonB = new JoystickButton(joyOperator, 2);
 	public JoystickButton ButtonX = new JoystickButton(joyOperator, 3);
@@ -27,7 +29,7 @@ public class OI {
 	public JoystickButton ButtonLB = new JoystickButton(joyOperator, 5);
 	public JoystickButton ButtonRB = new JoystickButton(joyOperator, 6);
 	public JoystickButton ButtonSelect = new JoystickButton(joyOperator, 7);
-  public JoystickButton ButtonStart = new JoystickButton(joyOperator, 8);
+  public JoystickButton ButtonStart = new JoystickButton(DriverXbox, 8);
   
 
   public OI()
@@ -40,7 +42,6 @@ public class OI {
   //Intake&Outake
   ButtonLB.whileHeld(new Intake());
   ButtonRB.whileHeld(new Outake());
-
 }
 
   
