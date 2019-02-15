@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.commands.ElevatorRaise;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -112,6 +113,12 @@ public class Robot extends TimedRobot {
     //Robot.mDriveTrainSubsystem.Mecanum.driveCartesian(Robot.mDriveTrainSubsystem.ySpeed, Robot.mDriveTrainSubsystem.xSpeed, Robot.mDriveTrainSubsystem.zRotation);
     Robot.mElevatorSubsystem.pivotElevator();
     mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
+    Robot.m_oi.ButtonX.whenPressed(new ElevatorRaise());
+
+    if (Robot.m_oi.ButtonX.get()){
+      Robot.mElevatorSubsystem.gotoTopPos();
+    }
+    
   
 
 

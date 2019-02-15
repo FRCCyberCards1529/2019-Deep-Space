@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class ElevatorSubsystem extends Subsystem {
   public DigitalInput bottomLimit = new DigitalInput(RobotMap.Bottom_Limit_Port);
   public DigitalInput topLimit = new DigitalInput(RobotMap.Top_Limit_Port);
-  public PWMTalonSRX ElevatorMotor = new PWMTalonSRX(4);
+  public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(4);
   public Solenoid IntakeSolenoid = new Solenoid(0);
   public Solenoid OutakeSolenoid = new Solenoid(1);
   public Solenoid PivotSolenoid = new Solenoid(2);
