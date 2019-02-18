@@ -25,10 +25,10 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class DriveTrainSubsystem extends Subsystem {
 	//public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
-	public PWMVictorSPX FrontLeft = new PWMVictorSPX(0);
-	public PWMVictorSPX RearLeft = new PWMVictorSPX(1);
-	public PWMVictorSPX FrontRight = new PWMVictorSPX(2);
-	public PWMVictorSPX RearRight = new PWMVictorSPX(3);
+	public Spark FrontLeft = new Spark(0);
+	public Spark RearLeft = new Spark(1);
+	public Spark FrontRight = new Spark(2);
+	public Spark RearRight = new Spark(3);
 
 	// public double ySpeed = Robot.m_oi.DriverXbox.getRawAxis(0);
 	// public double xSpeed = Robot.m_oi.DriverXbox.getRawAxis(1);

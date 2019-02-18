@@ -36,7 +36,7 @@ public class OI {
 {
 
   //Elevator Positions
-  //ButtonX.whenPressed(new ElevatorRaise());
+  ButtonX.whenPressed(new ElevatorRaise());
   ButtonB.whenPressed(new ElevatorBottom());
 
   //Intake&Outake

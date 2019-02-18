@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.Solenoid;
  * Add your docs here.
  */
 public class ElevatorSubsystem extends Subsystem {
-  public DigitalInput bottomLimit = new DigitalInput(RobotMap.Bottom_Limit_Port);
-  public DigitalInput topLimit = new DigitalInput(RobotMap.Top_Limit_Port);
-  public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(4);
+  public DigitalInput bottomLimit = new DigitalInput(1);
+  public DigitalInput topLimit = new DigitalInput(0);
+  public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(5);
   public Solenoid IntakeSolenoid = new Solenoid(0);
   public Solenoid OutakeSolenoid = new Solenoid(1);
   public Solenoid PivotSolenoid = new Solenoid(2);

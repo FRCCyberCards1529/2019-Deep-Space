@@ -115,9 +115,13 @@ public class Robot extends TimedRobot {
     mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
     Robot.m_oi.ButtonX.whenPressed(new ElevatorRaise());
 
-    if (Robot.m_oi.ButtonX.get()){
+    if (Robot.m_oi.ButtonX.get() && Robot.mElevatorSubsystem.bottomLimit.get()){
       Robot.mElevatorSubsystem.gotoTopPos();
     }
+    else{
+      Robot.mElevatorSubsystem.stopElevator();
+    }
+
     
   
 
