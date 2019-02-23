@@ -118,7 +118,11 @@ public class Robot extends TimedRobot {
     mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
     Robot.m_oi.ButtonX.whenPressed(new ElevatorRaise());
     Robot.m_oi.ButtonB.whenPressed(new ElevatorBottom());
-
+    if(Robot.m_oi.ButtonY.get()){
+      Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
+    }else{
+      Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
+    }
     Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1));
     Robot.mElevatorSubsystem.intakeMotor.set(Robot.m_oi.joyOperator.getRawAxis(5)*.5);
     // Robot.mDriveTrainSubsystem.FrontLeft.set(((-m_oi.joyOperator.getRawAxis(1))) - ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
