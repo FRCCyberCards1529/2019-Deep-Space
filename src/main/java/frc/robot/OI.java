@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ElevatorBottom;
 import frc.robot.commands.ElevatorRaise;
-import frc.robot.commands.Intake;
-import frc.robot.commands.Outake;
+
 //import frc.robot.commands.MecanumDrive;
 
 /**
@@ -29,7 +28,7 @@ public class OI {
 	public JoystickButton ButtonLB = new JoystickButton(joyOperator, 5);
 	public JoystickButton ButtonRB = new JoystickButton(joyOperator, 6);
 	public JoystickButton ButtonSelect = new JoystickButton(joyOperator, 7);
-  public JoystickButton ButtonStart = new JoystickButton(DriverXbox, 8);
+  public JoystickButton ButtonStart = new JoystickButton(joyOperator, 8);
   
 
   public OI()
@@ -40,8 +39,8 @@ public class OI {
   ButtonB.whenPressed(new ElevatorBottom());
 
   //Intake&Outake
-  ButtonLB.whileHeld(new Intake());
-  ButtonRB.whileHeld(new Outake());
+  // ButtonLB.whileHeld(new Intake());
+  // ButtonRB.whileHeld(new Outake());
 }
 
   

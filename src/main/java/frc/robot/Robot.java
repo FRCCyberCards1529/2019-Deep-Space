@@ -21,7 +21,7 @@ import frc.robot.commands.ElevatorRaise;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot{
   public static ElevatorSubsystem mElevatorSubsystem = new ElevatorSubsystem();
   public static DriveTrainSubsystem mDriveTrainSubsystem = new DriveTrainSubsystem();
   public MecanumDrive mecanumDrive = new MecanumDrive(Robot.mDriveTrainSubsystem.FrontLeft, Robot.mDriveTrainSubsystem.RearLeft, Robot.mDriveTrainSubsystem.FrontRight, Robot.mDriveTrainSubsystem.RearRight);
@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic(){
     Scheduler.getInstance().run();
 
 
@@ -118,11 +118,42 @@ public class Robot extends TimedRobot {
     mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
     Robot.m_oi.ButtonX.whenPressed(new ElevatorRaise());
     Robot.m_oi.ButtonB.whenPressed(new ElevatorBottom());
-    if(Robot.m_oi.ButtonY.get()){
+    
+    if(Robot.m_oi.ButtonLB.get()){
       Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
+      Robot.mElevatorSubsystem.PunchSolenoid.set(DoubleSolenoid.Value.kForward);
+      try {
+        Thread.sleep(250);
+      } catch (InterruptedException e) {
+        //TODO: handle exception
+      }
+      Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
+      Robot.mElevatorSubsystem.PunchSolenoid.set(false);
+      //Robot.mElevatorSubsystem.PullSolenoid.set(true);
+      try {
+        Thread.sleep(2000);
+      } catch (InterruptedException e) {
+        //TODO: handle exception
+      }
+      
     }else{
       Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
     }
+    if(Robot.m_oi.ButtonRB.get()){
+      Robot.mElevatorSubsystem.IntakeSolenoid.set(true);
+    }else{
+      Robot.mElevatorSubsystem.IntakeSolenoid.set(false);
+    }
+
+    if(Robot.m_oi.ButtonStart.get()){
+      Robot.mElevatorSubsystem.PivotSolenoid.set(true);
+      Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
+    }
+    if(Robot.m_oi.ButtonSelect.get()){
+      Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
+      Robot.mElevatorSubsystem.PivotSolenoid.set(false);
+    }
+
     Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1));
     Robot.mElevatorSubsystem.intakeMotor.set(Robot.m_oi.joyOperator.getRawAxis(5)*.5);
     // Robot.mDriveTrainSubsystem.FrontLeft.set(((-m_oi.joyOperator.getRawAxis(1))) - ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));

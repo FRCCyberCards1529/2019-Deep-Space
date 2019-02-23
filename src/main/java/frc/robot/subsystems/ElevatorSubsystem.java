@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.Intake;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.OI;
 import frc.robot.Robot;
@@ -29,8 +29,10 @@ public class ElevatorSubsystem extends Subsystem {
   public PWMVictorSPX intakeMotor = new PWMVictorSPX(5);
   public Solenoid IntakeSolenoid = new Solenoid(0);
   public Solenoid OutakeSolenoid = new Solenoid(1);
-  public Solenoid PivotSolenoid = new Solenoid(2);
-  public Solenoid OutPivotSolenoid = new Solenoid(3);
+  public DoubleSolenoid PunchSolenoid = new DoubleSolenoid(2, 3);
+  //public Solenoid PullSolenoid = new Solenoid(3);
+  public Solenoid PivotSolenoid = new Solenoid(4);
+  public Solenoid OutPivotSolenoid = new Solenoid(5);
 
     // Put methods for controlling this subsystem
   // here. Call these from Commands.
