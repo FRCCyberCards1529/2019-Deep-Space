@@ -29,10 +29,11 @@ public class ElevatorRaise extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    while (Robot.mElevatorSubsystem.topLimit.get())
+    while (!Robot.mElevatorSubsystem.topLimit.get())
     {
       Robot.mElevatorSubsystem.gotoTopPos();
     }
+    return;
   }
 
   // Make this return true when this Command no longer needs to run execute()

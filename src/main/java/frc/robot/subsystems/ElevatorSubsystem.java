@@ -13,7 +13,11 @@ import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.Intake;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.OI;
+import frc.robot.Robot;
+
 
 /**
  * Add your docs here.
@@ -21,10 +25,12 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class ElevatorSubsystem extends Subsystem {
   public DigitalInput bottomLimit = new DigitalInput(1);
   public DigitalInput topLimit = new DigitalInput(0);
-  public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(5);
+  public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(4);
+  public PWMVictorSPX intakeMotor = new PWMVictorSPX(5);
   public Solenoid IntakeSolenoid = new Solenoid(0);
   public Solenoid OutakeSolenoid = new Solenoid(1);
   public Solenoid PivotSolenoid = new Solenoid(2);
+  public Solenoid OutPivotSolenoid = new Solenoid(3);
 
     // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -36,14 +42,16 @@ public class ElevatorSubsystem extends Subsystem {
   }
 
   public void gotoTopPos(){
-    while (topLimit.get()){
+    while (!topLimit.get()){
       ElevatorMotor.set(0.25);
     }
-    return;
+    return ;
   }
 
+
+
   public void gotoBottomPos(){
-    while (bottomLimit.get()){
+    while (!bottomLimit.get()){
       ElevatorMotor.set(-0.25);
     }
     return;
@@ -52,13 +60,17 @@ public class ElevatorSubsystem extends Subsystem {
 
   //Intake Outake
   public void Intake(){
-    IntakeSolenoid.set(true);
-    OutakeSolenoid.set(false);
+    while(Robot.m_oi.ButtonLB.get()){
+      IntakeSolenoid.set(true);
+    }
+    //OutakeSolenoid.set(false);
   }
 
   public void Outake(){
-    IntakeSolenoid.set(false);
+    //IntakeSolenoid.set(false);
+    while(Robot.m_oi.ButtonRB.get()){
     OutakeSolenoid.set(true);
+    }
   }
 
   public void stopElevator(){

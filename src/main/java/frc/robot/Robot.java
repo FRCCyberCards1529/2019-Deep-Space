@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -9,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.commands.ElevatorBottom;
 import frc.robot.commands.ElevatorRaise;
 
 /**
@@ -114,20 +117,10 @@ public class Robot extends TimedRobot {
     Robot.mElevatorSubsystem.pivotElevator();
     mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
     Robot.m_oi.ButtonX.whenPressed(new ElevatorRaise());
+    Robot.m_oi.ButtonB.whenPressed(new ElevatorBottom());
 
-    if (Robot.m_oi.ButtonX.get() && Robot.mElevatorSubsystem.bottomLimit.get()){
-      Robot.mElevatorSubsystem.gotoTopPos();
-    }
-    else{
-      Robot.mElevatorSubsystem.stopElevator();
-    }
-
-    
-  
-
-
-
-
+    Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1));
+    Robot.mElevatorSubsystem.intakeMotor.set(Robot.m_oi.joyOperator.getRawAxis(5)*.5);
     // Robot.mDriveTrainSubsystem.FrontLeft.set(((-m_oi.joyOperator.getRawAxis(1))) - ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
 		// 	Robot.mDriveTrainSubsystem.RearLeft.set(((-m_oi.joyOperator.getRawAxis(1))) + ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
 		// 	Robot.mDriveTrainSubsystem.FrontRight.set(((m_oi.joyOperator.getRawAxis(1))) + ((m_oi.joyOperator.getRawAxis(0))) + ((m_oi.joyOperator.getRawAxis(4))));
