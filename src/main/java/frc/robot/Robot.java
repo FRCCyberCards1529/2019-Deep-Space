@@ -3,6 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -115,13 +116,14 @@ public class Robot extends TimedRobot{
     //Mecanum
     //Robot.mDriveTrainSubsystem.Mecanum.driveCartesian(Robot.mDriveTrainSubsystem.ySpeed, Robot.mDriveTrainSubsystem.xSpeed, Robot.mDriveTrainSubsystem.zRotation);
     Robot.mElevatorSubsystem.pivotElevator();
-    mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
+    mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), -Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
     Robot.m_oi.ButtonX.whenPressed(new ElevatorRaise());
     Robot.m_oi.ButtonB.whenPressed(new ElevatorBottom());
     
     if(Robot.m_oi.ButtonLB.get()){
       Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
-      Robot.mElevatorSubsystem.PunchSolenoid.set(DoubleSolenoid.Value.kForward);
+      Robot.mElevatorSubsystem.PullSolenoid.set(false);
+      Robot.mElevatorSubsystem.PunchSolenoid.set(true);
       try {
         Thread.sleep(250);
       } catch (InterruptedException e) {
@@ -129,7 +131,7 @@ public class Robot extends TimedRobot{
       }
       Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
       Robot.mElevatorSubsystem.PunchSolenoid.set(false);
-      //Robot.mElevatorSubsystem.PullSolenoid.set(true);
+      Robot.mElevatorSubsystem.PullSolenoid.set(true);
       try {
         Thread.sleep(2000);
       } catch (InterruptedException e) {
@@ -144,17 +146,30 @@ public class Robot extends TimedRobot{
     }else{
       Robot.mElevatorSubsystem.IntakeSolenoid.set(false);
     }
-
     if(Robot.m_oi.ButtonStart.get()){
       Robot.mElevatorSubsystem.PivotSolenoid.set(true);
       Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
-    }
+      }
+      else{
+        Robot.mElevatorSubsystem.PivotSolenoid.set(false);
+      }
     if(Robot.m_oi.ButtonSelect.get()){
       Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
       Robot.mElevatorSubsystem.PivotSolenoid.set(false);
     }
+    else{
+      Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
+    }
+      
+    if(Robot.m_oi.ButtonB.get()){
+       Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(true);
+       Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(false);
+    }else{
+       Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(false);
+       Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(true);
+    }
 
-    Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1));
+    Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1)*.5);
     Robot.mElevatorSubsystem.intakeMotor.set(Robot.m_oi.joyOperator.getRawAxis(5)*.5);
     // Robot.mDriveTrainSubsystem.FrontLeft.set(((-m_oi.joyOperator.getRawAxis(1))) - ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
 		// 	Robot.mDriveTrainSubsystem.RearLeft.set(((-m_oi.joyOperator.getRawAxis(1))) + ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
