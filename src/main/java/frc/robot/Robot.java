@@ -14,6 +14,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.commands.ElevatorBottom;
 import frc.robot.commands.ElevatorRaise;
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -42,6 +43,7 @@ public class Robot extends TimedRobot{
     m_oi = new OI();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
   @Override
