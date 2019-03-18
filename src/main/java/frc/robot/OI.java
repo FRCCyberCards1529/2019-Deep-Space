@@ -29,14 +29,15 @@ public class OI {
 	public JoystickButton ButtonRB = new JoystickButton(joyOperator, 6);
 	public JoystickButton ButtonSelect = new JoystickButton(joyOperator, 7);
   public JoystickButton ButtonStart = new JoystickButton(joyOperator, 8);
-  
+  public JoystickButton DButtonX = new JoystickButton(DriverXbox, 3);
+  public JoystickButton DButtonY = new JoystickButton(DriverXbox, 4);
 
   public OI()
 {
 
   //Elevator Positions
-  ButtonX.whenPressed(new ElevatorRaise());
-  ButtonB.whenPressed(new ElevatorBottom());
+  // ButtonX.whenPressed(new ElevatorRaise());
+  // ButtonB.whenPressed(new ElevatorBottom());
 
   //Intake&Outake
   // ButtonLB.whileHeld(new Intake());

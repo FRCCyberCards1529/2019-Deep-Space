@@ -29,6 +29,21 @@ public class DriveTrainSubsystem extends Subsystem {
 	public Spark RearLeft = new Spark(1);
 	public Spark FrontRight = new Spark(2);
 	public Spark RearRight = new Spark(3);
+	public Solenoid DropFrontLeft = new Solenoid(8);
+	public Solenoid DropBackLeft = new Solenoid(9);
+	public Solenoid DropFrontRight = new Solenoid(10);
+	public Solenoid DropBackRight = new Solenoid(11);  
+	public Spark DropWheelFrontLeft = new Spark(6);
+	public Spark DropWheelBackLeft = new Spark(7);
+	public Spark DropWheelFrontRight = new Spark(8);
+	public Spark DropWheelBackLeft = new Spark(9);
+	//public PWMVictorSPX DropWheelFrontLeft = new PWMVictorSPX(6);
+	//public PWMVictorSPX DropWheelBackLeft = new PWMVictorSPX(7);
+	//public PWMVictorSPX DropWheelFrontRight = new PWMVictorSPX(8);
+	//public PWMVictorSPX DropWheelBackRight= new PWMVictorSPX(9);
+
+
+
 
 	// public double ySpeed = Robot.m_oi.DriverXbox.getRawAxis(0);
 	// public double xSpeed = Robot.m_oi.DriverXbox.getRawAxis(1);

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -26,7 +27,8 @@ import frc.robot.Robot;
 public class ElevatorSubsystem extends Subsystem {
   public DigitalInput bottomLimit = new DigitalInput(1);
   public DigitalInput topLimit = new DigitalInput(0);
-  public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(4);
+  //public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(4);
+  public Spark ElevatorMotor = new Spark(4);
   public PWMVictorSPX intakeMotor = new PWMVictorSPX(5);
   public Solenoid IntakeSolenoid = new Solenoid(0);
   public Solenoid OutakeSolenoid = new Solenoid(1);
@@ -73,9 +75,9 @@ public class ElevatorSubsystem extends Subsystem {
 
   public void Outake(){
     //IntakeSolenoid.set(false);
-    while(Robot.m_oi.ButtonRB.get()){
-    OutakeSolenoid.set(true);
-    }
+  while(Robot.m_oi.ButtonRB.get()){
+  OutakeSolenoid.set(true);
+  }
   }
 
   public void stopElevator(){
