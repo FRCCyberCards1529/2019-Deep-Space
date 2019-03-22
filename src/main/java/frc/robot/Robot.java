@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.commands.ElevatorBottom;
 import frc.robot.commands.ElevatorRaise;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.RobotDriveBase;
+//import edu.wpi.first.wpilibj.RobotDriveBase;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,7 +28,6 @@ public class Robot extends TimedRobot{
   public static ElevatorSubsystem mElevatorSubsystem = new ElevatorSubsystem();
   public static DriveTrainSubsystem mDriveTrainSubsystem = new DriveTrainSubsystem();
   public MecanumDrive mecanumDrive = new MecanumDrive(Robot.mDriveTrainSubsystem.FrontLeft, Robot.mDriveTrainSubsystem.RearLeft, Robot.mDriveTrainSubsystem.FrontRight, Robot.mDriveTrainSubsystem.RearRight);
-  public void setDeadband(0);
   public static OI m_oi = new OI();
 
   Command m_autonomousCommand;
@@ -94,10 +93,14 @@ public class Robot extends TimedRobot{
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    if(Robot.m_oi.DButtonLB.get()){
+      Robot.mDriveTrainSubsystem.DropWheelBackLeft.set(.5);
+      Robot.mDriveTrainSubsystem.DropWheelBackRight.set(.5);
+        }
     if(Robot.m_oi.ButtonLB.get()){ 
       Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
      // Robot.mElevatorSubsystem.PullSolenoid.set(false);
-      Robot.mElevatorSubsystem.PunchSolenoid.set(true);
+      //Robot.mElevatorSubsystem.PunchSolenoid.set(true);
     }else{
       Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
     }
@@ -132,21 +135,34 @@ public class Robot extends TimedRobot{
        Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(true);
     }
     if(Robot.m_oi.DButtonX.get()){
-      Robot.mDriveTrainSubsystem.DropFrontLeft.set(true);
-      Robot.mDriveTrainSubsystem.DropFrontRight.set(true);
+      Robot.mDriveTrainSubsystem.LowerFrontWheels30.set(true);
+      Robot.mDriveTrainSubsystem.LowerBackWheels30.set(true);
     }else{
-      Robot.mDriveTrainSubsystem.DropFrontLeft.set(false);
-      Robot.mDriveTrainSubsystem.DropFrontRight.set(false);
+      Robot.mDriveTrainSubsystem.LowerFrontWheels30.set(false);
+      Robot.mDriveTrainSubsystem.LowerBackWheels30.set(false);
     }
     if(Robot.m_oi.DButtonY.get()){
-      Robot.mDriveTrainSubsystem.DropBackLeft.set(true);
-      Robot.mDriveTrainSubsystem.DropBackRight.set(true);
+      Robot.mDriveTrainSubsystem.RaiseFrontWheels30.set(true);
+      Robot.mDriveTrainSubsystem.RaiseBackWheels30.set(true);
     }else{
-      Robot.mDriveTrainSubsystem.DropBackLeft.set(false);
-      Robot.mDriveTrainSubsystem.DropBackRight.set(false);
+      Robot.mDriveTrainSubsystem.RaiseFrontWheels30.set(false);
+      Robot.mDriveTrainSubsystem.RaiseBackWheels30.set(false);
     }
-    
-
+    if(Robot.m_oi.DButtonA.get()){
+      Robot.mDriveTrainSubsystem.LowerFrontWheels60.set(true);
+      Robot.mDriveTrainSubsystem.LowerBackWheels60.set(true);
+    }else{
+      Robot.mDriveTrainSubsystem.LowerFrontWheels60.set(false);
+      Robot.mDriveTrainSubsystem.LowerBackWheels60.set(false);
+    }
+    if(Robot.m_oi.DButtonB.get()){
+      Robot.mDriveTrainSubsystem.RaiseFrontWheels60.set(true);
+      Robot.mDriveTrainSubsystem.RaiseBackWheels60.set(true);
+    }else{
+      Robot.mDriveTrainSubsystem.RaiseFrontWheels60.set(false);
+      Robot.mDriveTrainSubsystem.RaiseBackWheels60.set(false);
+    }
+  
     Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1)*.5);
     Robot.mElevatorSubsystem.intakeMotor.set(Robot.m_oi.joyOperator.getRawAxis(5)*.5);
     mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), -Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
@@ -162,12 +178,13 @@ public class Robot extends TimedRobot{
       m_autonomousCommand.cancel();
 
     }
-  }
+  
 
   /**
    * This function is called periodically during operator control.
    */
-  @Override  
+  
+    if(Robot.m_oi.ButtonY.get()){
       Robot.mElevatorSubsystem.PunchSolenoid.set(true);
       Robot.mElevatorSubsystem.PullSolenoid.set(false);
     } else {
@@ -220,8 +237,8 @@ public class Robot extends TimedRobot{
 		// 	Robot.mDriveTrainSubsystem.RearLeft.set(((-m_oi.joyOperator.getRawAxis(1))) + ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
 		// 	Robot.mDriveTrainSubsystem.FrontRight.set(((m_oi.joyOperator.getRawAxis(1))) + ((m_oi.joyOperator.getRawAxis(0))) + ((m_oi.joyOperator.getRawAxis(4))));
 		// 	Robot.mDriveTrainSubsystem.RearRight.set(((m_oi.joyOperator.getRawAxis(1))) - ((m_oi.joyOperator.getRawAxis(0))) + ((m_oi.joyOperator.getRawAxis(4))));
+  
   }
-
   /**
    * This function is called periodically during test mode.
    */

@@ -29,8 +29,12 @@ public class OI {
 	public JoystickButton ButtonRB = new JoystickButton(joyOperator, 6);
 	public JoystickButton ButtonSelect = new JoystickButton(joyOperator, 7);
   public JoystickButton ButtonStart = new JoystickButton(joyOperator, 8);
+  public JoystickButton DButtonA = new JoystickButton(DriverXbox, 1);
+  public JoystickButton DButtonB = new JoystickButton(DriverXbox, 2);
   public JoystickButton DButtonX = new JoystickButton(DriverXbox, 3);
   public JoystickButton DButtonY = new JoystickButton(DriverXbox, 4);
+  public JoystickButton DButtonLB = new JoystickButton(DriverXbox,5);
+
 
   public OI()
 {
