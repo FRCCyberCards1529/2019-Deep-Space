@@ -30,16 +30,17 @@ public class ElevatorSubsystem extends Subsystem {
   //public PWMVictorSPX ElevatorMotor = new PWMVictorSPX(4);
   public Spark ElevatorMotor = new Spark(4);
   public PWMVictorSPX intakeMotor = new PWMVictorSPX(5);
-  public Solenoid IntakeSolenoid = new Solenoid(0,0);
-  public Solenoid OutakeSolenoid = new Solenoid(0,1);
-  public Solenoid PunchSolenoid = new Solenoid(0,2);
-  public Solenoid PullSolenoid = new Solenoid(0,3);
-  public Solenoid PivotSolenoid = new Solenoid(0,4);
-  public Solenoid OutPivotSolenoid = new Solenoid(0,5);
-  public Solenoid ElevatorPivotSolenoid = new Solenoid(0,6);
-  public Solenoid ElevatorOutPivotSolenoid = new Solenoid(0,7);
-  public Spark IntakeBall = new Spark(8);
-  public Spark OuttakeBall = new Spark(9);
+  public Solenoid IntakeSolenoid = new Solenoid(1,0);
+  public Solenoid OutakeSolenoid = new Solenoid(1,1);
+  //public Solenoid PunchSolenoid = new Solenoid(0,2);
+  //public Solenoid PullSolenoid = new Solenoid(0,3);
+  //public Solenoid PivotSolenoid = new Solenoid(0,4);
+  //public Solenoid OutPivotSolenoid = new Solenoid(0,5);
+  //public Solenoid ElevatorPivotSolenoid = new Solenoid(0,6);
+  //public Solenoid ElevatorOutPivotSolenoid = new Solenoid(0,7);
+  public DoubleSolenoid ElevatorPivotSolenoid = new DoubleSolenoid(1, 6, 7);
+  public PWMVictorSPX IntakeBall = new PWMVictorSPX(8);
+  public PWMVictorSPX OuttakeBall = new PWMVictorSPX(9);
 
     // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -69,26 +70,6 @@ public class ElevatorSubsystem extends Subsystem {
 
   //Intake Outake
   public void Intake(){
-    while(Robot.m_oi.ButtonLB.get()){
-      IntakeSolenoid.set(true);
-    }
-    //OutakeSolenoid.set(false);
   }
-
-  public void Outake(){
-    //IntakeSolenoid.set(false);
-  while(Robot.m_oi.ButtonRB.get()){
-  OutakeSolenoid.set(true);
-  }
-  }
-
-  public void stopElevator(){
-    ElevatorMotor.set(0.0);
-  }
-
-  public void pivotElevator(){
-    PivotSolenoid.set(true);
-    
-  }
-
 }
+    

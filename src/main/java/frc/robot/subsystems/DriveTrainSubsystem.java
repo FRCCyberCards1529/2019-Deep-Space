@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
@@ -30,14 +31,18 @@ public class DriveTrainSubsystem extends Subsystem {
 	public Spark RearLeft = new Spark(1);
 	public Spark FrontRight = new Spark(2);
 	public Spark RearRight = new Spark(3);
-	public Solenoid LowerFrontWheels30 = new Solenoid(1,0);
-	public Solenoid RaiseFrontWheels30 = new Solenoid(1,1);
-	public Solenoid RaiseBackWheels30 = new Solenoid(1,2);
-	public Solenoid LowerBackWheels30 = new Solenoid(1,3);  
-	public Solenoid LowerFrontWheels60 = new Solenoid(1,4);
-	public Solenoid RaiseFrontWheels60 = new Solenoid(1,5);
-	public Solenoid LowerBackWheels60 = new Solenoid(1,6);
-	public Solenoid RaiseBackWheels60 = new Solenoid(1,7);
+	// public Solenoid LowerFrontWheels30 = new Solenoid(1,0);
+	// public Solenoid RaiseFrontWheels30 = new Solenoid(1,1);
+	public DoubleSolenoid FrontWheels30 = new DoubleSolenoid (0, 0, 1);
+	// public Solenoid RaiseBackWheels30 = new Solenoid(1,2);
+	// public Solenoid LowerBackWheels30 = new Solenoid(1,3);  
+	public DoubleSolenoid BackWheels30 = new DoubleSolenoid (0, 6, 7);
+	//public Solenoid LowerFrontWheels60 = new Solenoid(1,4);
+	//public Solenoid RaiseFrontWheels60 = new Solenoid(1,5);
+	public DoubleSolenoid FrontWheels60 = new DoubleSolenoid (0, 2, 3);
+	//public Solenoid LowerBackWheels60 = new Solenoid(1,6);
+	//public Solenoid RaiseBackWheels60 = new Solenoid(1,7);
+	public DoubleSolenoid BackWheels60 = new DoubleSolenoid (0, 4, 5);
 	public PWMVictorSPX DropWheelBackLeft = new PWMVictorSPX(6);
 	public PWMVictorSPX DropWheelBackRight = new PWMVictorSPX(7);
 	//public PWMVictorSPX DropWheelFrontLeft = new PWMVictorSPX(6);

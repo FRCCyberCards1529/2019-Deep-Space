@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.commands.ElevatorBottom;
 import frc.robot.commands.ElevatorRaise;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 //import edu.wpi.first.wpilibj.RobotDriveBase;
 
 /**
@@ -43,8 +45,8 @@ public class Robot extends TimedRobot{
     m_oi = new OI();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    CameraServer.getInstance().startAutomaticCapture();
-    mecanumDrive.setSafetyEnabled(false);
+    //CameraServer.getInstance().startAutomaticCapture();
+   // mecanumDrive.setSafetyEnabled(false);
   }
 
   @Override
@@ -94,79 +96,7 @@ public class Robot extends TimedRobot{
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-    if(Robot.m_oi.DButtonLB.get()){
-      Robot.mDriveTrainSubsystem.DropWheelBackLeft.set(.5);
-      Robot.mDriveTrainSubsystem.DropWheelBackRight.set(.5);
-        }
-    if(Robot.m_oi.ButtonLB.get()){ 
-      Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
-     // Robot.mElevatorSubsystem.PullSolenoid.set(false);
-      //Robot.mElevatorSubsystem.PunchSolenoid.set(true);
-    }else{
-      Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
-    }
-    if(Robot.m_oi.ButtonRB.get()){
-      Robot.mElevatorSubsystem.IntakeSolenoid.set(true);
-    }else{
-      Robot.mElevatorSubsystem.IntakeSolenoid.set(false);
-    }
-    if(Robot.m_oi.ButtonStart.get()){
-      Robot.mElevatorSubsystem.PivotSolenoid.set(true);
-      Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
-      }
-      else{
-        Robot.mElevatorSubsystem.PivotSolenoid.set(false);
-        Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
-      }
-    if(Robot.m_oi.ButtonSelect.get()){
-      Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
-      Robot.mElevatorSubsystem.PivotSolenoid.set(false);
-    }
-    else{
-      Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
-      Robot.mElevatorSubsystem.PivotSolenoid.set(true);
-    }
-     
-    
-    if(Robot.m_oi.ButtonB.get()){
-       Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(true);
-       Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(false);
-    }else{
-       Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(false);
-       Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(true);
-    }
-    if(Robot.m_oi.DButtonX.get()){
-      Robot.mDriveTrainSubsystem.LowerFrontWheels30.set(true);
-      Robot.mDriveTrainSubsystem.LowerBackWheels30.set(true);
-    }else{
-      Robot.mDriveTrainSubsystem.LowerFrontWheels30.set(false);
-      Robot.mDriveTrainSubsystem.LowerBackWheels30.set(false);
-    }
-    if(Robot.m_oi.DButtonY.get()){
-      Robot.mDriveTrainSubsystem.RaiseFrontWheels30.set(true);
-      Robot.mDriveTrainSubsystem.RaiseBackWheels30.set(true);
-    }else{
-      Robot.mDriveTrainSubsystem.RaiseFrontWheels30.set(false);
-      Robot.mDriveTrainSubsystem.RaiseBackWheels30.set(false);
-    }
-    if(Robot.m_oi.DButtonA.get()){
-      Robot.mDriveTrainSubsystem.LowerFrontWheels60.set(true);
-      Robot.mDriveTrainSubsystem.LowerBackWheels60.set(true);
-    }else{
-      Robot.mDriveTrainSubsystem.LowerFrontWheels60.set(false);
-      Robot.mDriveTrainSubsystem.LowerBackWheels60.set(false);
-    }
-    if(Robot.m_oi.DButtonB.get()){
-      Robot.mDriveTrainSubsystem.RaiseFrontWheels60.set(true);
-      Robot.mDriveTrainSubsystem.RaiseBackWheels60.set(true);
-    }else{
-      Robot.mDriveTrainSubsystem.RaiseFrontWheels60.set(false);
-      Robot.mDriveTrainSubsystem.RaiseBackWheels60.set(false);
-    }
-  
-    Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1)*.5);
-    Robot.mElevatorSubsystem.intakeMotor.set(Robot.m_oi.joyOperator.getRawAxis(5)*.5);
-    mecanumDrive.driveCartesian(-Robot.m_oi.DriverXbox.getRawAxis(0), -Robot.m_oi.DriverXbox.getRawAxis(1), Robot.m_oi.DriverXbox.getRawAxis(4));
+    userControl();
   }
 
   @Override
@@ -185,66 +115,178 @@ public class Robot extends TimedRobot{
    * This function is called periodically during operator control.
    */
   
-    if(Robot.m_oi.ButtonY.get()){
-      Robot.mElevatorSubsystem.PunchSolenoid.set(true);
-      Robot.mElevatorSubsystem.PullSolenoid.set(false);
-    } else {
-      //System.out.writeline("Y button released");
-      Robot.mElevatorSubsystem.PullSolenoid.set(true);
-      Robot.mElevatorSubsystem.PunchSolenoid.set(false);
-    }
-    if(Robot.m_oi.ButtonLB.get()){
-      Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
-     // Robot.mElevatorSubsystem.PullSolenoid.set(false);
-      //Robot.mElevatorSubsystem.PunchSolenoid.set(true);
-    }else{
-      Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
-    }
-    if(Robot.m_oi.ButtonRB.get()){
-      Robot.mElevatorSubsystem.IntakeSolenoid.set(true);
-    }else{
-      Robot.mElevatorSubsystem.IntakeSolenoid.set(false);
-    }
-    if(Robot.m_oi.ButtonStart.get()){
-      Robot.mElevatorSubsystem.PivotSolenoid.set(true);
-      Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
-      }
-      else{
-        Robot.mElevatorSubsystem.PivotSolenoid.set(false);
-        //Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
-      }
-    if(Robot.m_oi.ButtonSelect.get()){
-      Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
-      Robot.mElevatorSubsystem.PivotSolenoid.set(false);
-    }
-    else{
-      Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
-      //Robot.mElevatorSubsystem.PivotSolenoid.set(true);
-    }
-     
-    
-    if(Robot.m_oi.ButtonB.get()){
-       Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(true);
-       Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(false);
-    }else{
-       Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(false);
-       Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(true);
-    }
-    
-
-    Robot.mElevatorSubsystem.ElevatorMotor.set(Robot.m_oi.joyOperator.getRawAxis(1)*.5);
-    Robot.mElevatorSubsystem.intakeMotor.set(Robot.m_oi.joyOperator.getRawAxis(5)*.5);
-    // Robot.mDriveTrainSubsystem.FrontLeft.set(((-m_oi.joyOperator.getRawAxis(1))) - ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
-		// 	Robot.mDriveTrainSubsystem.RearLeft.set(((-m_oi.joyOperator.getRawAxis(1))) + ((-m_oi.joyOperator.getRawAxis(0))) - ((-m_oi.joyOperator.getRawAxis(4))));
-		// 	Robot.mDriveTrainSubsystem.FrontRight.set(((m_oi.joyOperator.getRawAxis(1))) + ((m_oi.joyOperator.getRawAxis(0))) + ((m_oi.joyOperator.getRawAxis(4))));
-		// 	Robot.mDriveTrainSubsystem.RearRight.set(((m_oi.joyOperator.getRawAxis(1))) - ((m_oi.joyOperator.getRawAxis(0))) + ((m_oi.joyOperator.getRawAxis(4))));
-  
   }
+
+  @Override
+  public void teleopPeriodic() {
+    userControl();
+  }
+
   /**
    * This function is called periodically during test mode.
    */
   @Override
   public void testPeriodic() {
+      System.out.println("test");
+  }
+
+  public static double deadband(double in) {
+    if(Math.abs(in)>0.5) {
+      return in;
+    } else {
+      return 0;
+    }
+  }
+  public void userControl(){
+    if(Robot.m_oi.DButtonLB.get()){
+      Robot.mDriveTrainSubsystem.DropWheelBackLeft.set(-.1);
+      Robot.mDriveTrainSubsystem.DropWheelBackRight.set(.1);
+    } else {
+      Robot.mDriveTrainSubsystem.DropWheelBackLeft.set(0);
+      Robot.mDriveTrainSubsystem.DropWheelBackRight.set(0);
+    }
+
+    // if(Robot.m_oi.ButtonLB.get()){ 
+    //   Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
+    //  // Robot.mElevatorSubsystem.PullSolenoid.set(false);
+    //   //Robot.mElevatorSubsystem.PunchSolenoid.set(true);
+    // }else{
+    //   Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
+    // }
+    if (Robot.m_oi.ButtonLB.get()){
+      Robot.mElevatorSubsystem.OutakeSolenoid.set(true);
+    } else {
+      Robot.mElevatorSubsystem.OutakeSolenoid.set(false);
+    }
+
+     if(Robot.m_oi.ButtonRB.get()){
+       Robot.mElevatorSubsystem.IntakeSolenoid.set(true);
+     }else{
+       Robot.mElevatorSubsystem.IntakeSolenoid.set(false);
+    }
+
+    if(Robot.m_oi.ButtonA.get()){
+      Robot.mElevatorSubsystem.IntakeBall.set(-.5);
+      Robot.mElevatorSubsystem.OuttakeBall.set(.5);
+    }else{
+      Robot.mElevatorSubsystem.IntakeBall.set(0);
+      Robot.mElevatorSubsystem.OuttakeBall.set(0);
+    }
+
+    if(Robot.m_oi.ButtonX.get()){
+      Robot.mElevatorSubsystem.IntakeBall.set(.5);
+      Robot.mElevatorSubsystem.OuttakeBall.set(.5);
+    }else{
+      Robot.mElevatorSubsystem.IntakeBall.set(0);
+      Robot.mElevatorSubsystem.OuttakeBall.set(0);
+    }
+
+    // if(Robot.m_oi.ButtonStart.get()){
+    //   Robot.mElevatorSubsystem.PivotSolenoid.set(true);
+    //   Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
+    //   }
+    //   else{
+    //     Robot.mElevatorSubsystem.PivotSolenoid.set(false);
+    //     Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
+    //   }
+
+    // if(Robot.m_oi.ButtonSelect.get()){
+    //   Robot.mElevatorSubsystem.OutPivotSolenoid.set(true);
+    //   Robot.mElevatorSubsystem.PivotSolenoid.set(false);
+    // }
+    // else{
+    //   Robot.mElevatorSubsystem.OutPivotSolenoid.set(false);
+    //   Robot.mElevatorSubsystem.PivotSolenoid.set(true);
+    // }
+     
+    
+    // if(Robot.m_oi.ButtonB.get()){
+    //    Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(true);
+    //    Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(false);
+    // }else{
+    //    Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(false);
+    //    Robot.mElevatorSubsystem.ElevatorOutPivotSolenoid.set(true);
+     //}
+     if(Robot.m_oi.ButtonB.get()){
+      Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(DoubleSolenoid.Value.kForward);
+    } else {
+      Robot.mElevatorSubsystem.ElevatorPivotSolenoid.set(DoubleSolenoid.Value.kOff);
+    }
+    // if(Robot.m_oi.DButtonX.get()){
+    //   Robot.mDriveTrainSubsystem.LowerFrontWheels30.set(true);
+    //   Robot.mDriveTrainSubsystem.LowerBackWheels30.set(true);
+    // }else{
+    //   Robot.mDriveTrainSubsystem.LowerFrontWheels30.set(false);
+    //   Robot.mDriveTrainSubsystem.LowerBackWheels30.set(false);
+    // }
+    // if(Robot.m_oi.DButtonY.get()){
+    //   Robot.mDriveTrainSubsystem.RaiseFrontWheels30.set(true);
+    //   Robot.mDriveTrainSubsystem.RaiseBackWheels30.set(true);
+    // }else{
+    //   Robot.mDriveTrainSubsystem.RaiseFrontWheels30.set(false);
+    //   Robot.mDriveTrainSubsystem.RaiseBackWheels30.set(false);
+    // }
+    if(Robot.m_oi.DButtonA.get()){
+      Robot.mDriveTrainSubsystem.FrontWheels30.set(DoubleSolenoid.Value.kReverse);
+      Robot.mDriveTrainSubsystem.BackWheels30.set(DoubleSolenoid.Value.kReverse);
+    } else {
+      Robot.mDriveTrainSubsystem.FrontWheels30.set(DoubleSolenoid.Value.kOff);
+      Robot.mDriveTrainSubsystem.BackWheels30.set(DoubleSolenoid.Value.kOff);
+    }
+
+    if(Robot.m_oi.DButtonX.get()){
+      Robot.mDriveTrainSubsystem.FrontWheels60.set(DoubleSolenoid.Value.kReverse);
+      Robot.mDriveTrainSubsystem.BackWheels60.set(DoubleSolenoid.Value.kReverse);
+    } else {
+      Robot.mDriveTrainSubsystem.FrontWheels30.set(DoubleSolenoid.Value.kOff);
+      Robot.mDriveTrainSubsystem.BackWheels30.set(DoubleSolenoid.Value.kOff);
+    }
+
+    if(Robot.m_oi.DButtonB.get()){
+      Robot.mDriveTrainSubsystem.FrontWheels60.set(DoubleSolenoid.Value.kForward);
+      Robot.mDriveTrainSubsystem.BackWheels60.set(DoubleSolenoid.Value.kForward);
+    } else {
+      Robot.mDriveTrainSubsystem.FrontWheels60.set(DoubleSolenoid.Value.kOff);
+      Robot.mDriveTrainSubsystem.BackWheels60.set(DoubleSolenoid.Value.kOff);
+    }
+    
+    if(Robot.m_oi.DButtonY.get()){
+      Robot.mDriveTrainSubsystem.FrontWheels60.set(DoubleSolenoid.Value.kReverse);
+    } else {
+      Robot.mDriveTrainSubsystem.FrontWheels60.set(DoubleSolenoid.Value.kOff);
+      
+    }
+    // if(Robot.m_oi.DButtonA.get()){
+    //   Robot.mDriveTrainSubsystem.LowerFrontWheels60.set(true);
+    //   Robot.mDriveTrainSubsystem.LowerBackWheels60.set(true);
+    // }else{
+    //   Robot.mDriveTrainSubsystem.LowerFrontWheels60.set(false);
+    //   Robot.mDriveTrainSubsystem.LowerBackWheels60.set(false);
+    // }
+    // if(Robot.m_oi.DButtonB.get()){
+    //   Robot.mDriveTrainSubsystem.RaiseFrontWheels60.set(true);
+    //   Robot.mDriveTrainSubsystem.RaiseBackWheels60.set(true);
+    // }else{
+    //   Robot.mDriveTrainSubsystem.RaiseFrontWheels60.set(false);
+    //   Robot.mDriveTrainSubsystem.RaiseBackWheels60.set(false);
+    // }
+  
+    Robot.mElevatorSubsystem.ElevatorMotor.set(deadband(Robot.m_oi.joyOperator.getRawAxis(1))*.5);
+    Robot.mElevatorSubsystem.intakeMotor.set(deadband(Robot.m_oi.joyOperator.getRawAxis(5))*.5);
+    
+    //public void userControl(){
+      // if(Robot.m_oi.ButtonLB.get()){
+      //   Robot.mDriveTrainSubsystem.DropWheelBackLeft.set(.3);
+      //   Robot.mDriveTrainSubsystem.DropWheelBackRight.set(.3);
+      // } else {
+      //   Robot.mDriveTrainSubsystem.DropWheelBackLeft.set(0);
+      //   Robot.mDriveTrainSubsystem.DropWheelBackRight.set(0);
+    
+    
+    System.out.println(Robot.mElevatorSubsystem.ElevatorMotor.get());
+    
+    mecanumDrive.driveCartesian(deadband(-Robot.m_oi.DriverXbox.getRawAxis(0)), deadband(-Robot.m_oi.DriverXbox.getRawAxis(1)),deadband(-Robot.m_oi.DriverXbox.getRawAxis(4)));
 
   }
 }
+
